@@ -6,7 +6,7 @@
 /*   By: hbelhadj <hbelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:56:00 by hbelhadj          #+#    #+#             */
-/*   Updated: 2023/10/01 17:28:58 by hbelhadj         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:21:45 by hbelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->next->fork);
 }
 
+void	short_diner(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->write);
+	pthread_mutex_lock(&philo->data->is_end_t);
+	if (philo->data->is_end == 1)
+	{
+		pthread_mutex_unlock(&philo->data->write);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data->is_end_t);
+	pthread_mutex_unlock(&philo->data->write);
+}
+
 void	*diner(void *arg)
 {
 	t_philo	*philo;
@@ -72,15 +85,6 @@ void	*diner(void *arg)
 		ft_print("is sleeping\n", philo);
 		pthread_mutex_unlock(&philo->data->write);
 		ft_usleep(philo->data->time_to_sleep);
-		pthread_mutex_lock(&philo->data->write);
-		pthread_mutex_lock(&philo->data->is_end_t);
-		if (philo->data->is_end == 1)
-		{
-			pthread_mutex_unlock(&philo->data->write);
-			return (NULL);
-		}
-		pthread_mutex_unlock(&philo->data->is_end_t);
-		// ft_print("is thinking\n", philo);
-		pthread_mutex_unlock(&philo->data->write);
+		short_diner(philo);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hbelhadj <hbelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 22:42:23 by hbelhadj          #+#    #+#             */
-/*   Updated: 2023/10/01 16:32:57 by hbelhadj         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:24:53 by hbelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ void	ft_usleep(long time);
 void	ft_print(char *str, t_philo *philo);
 void	eat(t_philo *philo);
 void	*diner(void *arg);
+void	destroy_mutex(t_philo *philo);
+void	detach_treads(t_philo	*philo);
 
 #endif

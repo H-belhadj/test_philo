@@ -6,7 +6,7 @@
 /*   By: hbelhadj <hbelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 22:42:14 by hbelhadj          #+#    #+#             */
-/*   Updated: 2023/10/01 18:01:21 by hbelhadj         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:24:28 by hbelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	sort_cena_2(t_philo *philo)
 
 void	cena(t_philo *philo)
 {
-	int	i;
-	t_philo *tmp;
+	int			i;
+	t_philo		*tmp;
 
 	tmp = philo;
 	i = 0;
@@ -72,25 +72,8 @@ void	cena(t_philo *philo)
 		}
 		tmp = tmp->next;
 	}
-	i = -1;
-	tmp = philo;
-	while(++i < tmp->data->number_of_philosophers)
-	{
-		usleep(50000);
-		pthread_detach(tmp->thread);
-		tmp = tmp->next;
-	}
-	i = -1;
-	tmp = philo;
-	while (++i < tmp->data->number_of_philosophers)
-	{
-		pthread_mutex_destroy(&tmp->fork);
-		pthread_mutex_destroy(&tmp->data->die);
-		pthread_mutex_destroy(&tmp->data->eat);
-		pthread_mutex_destroy(&tmp->data->write);
-		pthread_mutex_destroy(&tmp->data->is_end_t);
-		tmp = tmp->next;
-	}
+	detach_treads(tmp);
+	destroy_mutex(tmp);
 }
 
 int	main(int argc, char **argv)

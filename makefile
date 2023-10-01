@@ -1,4 +1,4 @@
- CC = cc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = philo
 SOURCES = circulare_philo.c  error.c  philo.c  utils.c  value_arg.c fork.c time.c ft_uslip.c
